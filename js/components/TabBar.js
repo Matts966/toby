@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     flexWrap: 'nowrap',
     alignItems: 'center',
     height: 56,
-    elevation: 3,
     zIndex: 1,
+    ...colors.shadow,
   },
   tabs: {
     height: '100%',

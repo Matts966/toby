@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
@@ -11,6 +10,10 @@ import _ from 'lodash';
 import { fetchBookmarks } from '../actions/bookmarks';
 
 import TabBar from '../components/TabBar';
+import Text from '../components/Text';
+import Bookmark from '../components/Bookmark';
+
+import { colors, fonts } from '../constants/parameters';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -30,7 +33,6 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     fetchBookmarks()
       .then((res) => {
-        console.log('res', res);
         const { teams } = res;
         let { lists } = res;
         const bookmarks = [];
@@ -57,19 +59,21 @@ export default class HomeScreen extends React.Component {
       (routes, { name, id }) => ({
         ...routes,
         [_.capitalize(name)]: () => (
-          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <ScrollView style={styles.tabs} contentContainerStyle={styles.contentContainer}>
             {_.filter(lists, { teamId: id }).map(({ id: listId, title }) => (
-              <View key={listId}>
-                <Text style={styles.lists}>
+              <View
+                key={listId}
+                style={styles.lists}
+              >
+                <Text style={styles.listsTitle}>
                   {title}
                 </Text>
-                {_.filter(bookmarks, { listId }).map(({ id: bookmarkId, url }) => (
-                  <Text
-                    key={bookmarkId}
-                    style={styles.bookmarks}
-                  >
-                    {url}
-                  </Text>
+                {_.filter(bookmarks, { listId }).map(bookmark => (
+                  <Bookmark
+                    key={bookmark.id}
+                    style={styles.bookmark}
+                    data={bookmark}
+                  />
                 ))}
               </View>
             ))}
@@ -100,15 +104,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  teams: {
-    fontSize: 24,
+  tabs: {
+    padding: 16,
   },
   lists: {
-    fontSize: 18,
-    paddingLeft: 8,
+    marginBottom: 16,
   },
-  bookmarks: {
-    paddingLeft: 16,
+  listsTitle: {
+    color: colors.secondary,
     fontSize: 18,
+    ...fonts.medium,
+    paddingVertical: 6,
+  },
+  bookmark: {
+    marginHorizontal: 4,
+    marginVertical: 8,
   },
 });

@@ -1,4 +1,6 @@
-import { Dimensions, Platform, StatusBar } from 'react-native';
+import {
+  Dimensions, Platform, StatusBar, StyleSheet,
+} from 'react-native';
 import hexRgb from 'hex-rgb';
 
 const { width, height } = Dimensions.get('window');
@@ -13,15 +15,25 @@ function rgba(hex, a = null) {
 const plain = {
   primary: '#fa507b',
   secondary: '#a3a3c0',
+  grey: '#C5C7D5',
   white: '#ffffff',
   black: '#222222',
-  grey: '#BCB9B9',
 };
 
 export const colors = {
   ...plain,
   whiteTransparent: rgba(plain.white, 0.8),
   secondaryTransparent: rgba(plain.secondary, 0.8),
+  secondaryTransparentLight: rgba(plain.secondary, 0.4),
+  shadow: {
+    elevation: 4,
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    shadowRadius: StyleSheet.hairlineWidth,
+    shadowOffset: {
+      height: StyleSheet.hairlineWidth,
+    },
+  },
 };
 
 const fontFamily = 'Ubuntu';
