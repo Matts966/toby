@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
-  View,
   Text,
   TextInput,
 } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import Api from '../../libs/requests';
@@ -60,7 +60,7 @@ class SignUpScreen extends React.Component {
     } = this.state;
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Text>Signup</Text>
         <Text>Full Name</Text>
         <TextInput
@@ -85,7 +85,7 @@ class SignUpScreen extends React.Component {
           <Text>{error}</Text>
         )}
         <Spinner overlay visible={loading} />
-      </View>
+      </SafeAreaView>
     );
   }
 }
