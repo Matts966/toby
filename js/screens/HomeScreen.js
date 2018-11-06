@@ -5,10 +5,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import { createMaterialTopTabNavigator, MaterialTopTabBar } from 'react-navigation-tabs';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import _ from 'lodash';
 
 import { fetchBookmarks } from '../actions/bookmarks';
+
+import TabBar from '../components/TabBar';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -28,6 +30,7 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     fetchBookmarks()
       .then((res) => {
+        console.log('res', res);
         const { teams } = res;
         let { lists } = res;
         const bookmarks = [];
@@ -77,16 +80,7 @@ export default class HomeScreen extends React.Component {
     );
 
     return createMaterialTopTabNavigator(tabs, {
-      tabBarComponent: props => (
-        <View>
-          <View>
-            <MaterialTopTabBar {...props}><Text>Bla</Text></MaterialTopTabBar>
-          </View>
-          <View>
-            <Text>Bla</Text>
-          </View>
-        </View>
-      ),
+      tabBarComponent: TabBar,
     });
   }
 
@@ -116,5 +110,6 @@ const styles = StyleSheet.create({
   bookmarks: {
     fontSize: 14,
     paddingLeft: 16,
+    fontSize: 18,
   },
 });

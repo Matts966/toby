@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-link-preview')
     implementation project(':react-native-share-extension')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

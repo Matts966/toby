@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -53,6 +52,15 @@
 		94DE3E1A218AF24E00B60122 /* libReactNativeShareExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DE3D69218AEC9900B60122 /* libReactNativeShareExtension.a */; };
 		94DE3E1B218AF83200B60122 /* libReactNativeShareExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DE3D69218AEC9900B60122 /* libReactNativeShareExtension.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		7C8A2ABF551E4AF5A87AACC2 /* libRNReactNativeLinkPreview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1D3A99C140D42B28E18E11C /* libRNReactNativeLinkPreview.a */; };
+		7581F22675DF406985798EEB /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4051D079A19A43B3930546A8 /* Ubuntu-Bold.ttf */; };
+		3389A2E18B15425487D00F27 /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DD6050DA9B341C6B4D69BDC /* Ubuntu-BoldItalic.ttf */; };
+		B41424CB75CA46618DB8ED18 /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5286252E7A844951B53EC899 /* Ubuntu-Light.ttf */; };
+		CEDEEBC30DE1428694DDD6A2 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BC7311A6AD84C0082027239 /* Ubuntu-LightItalic.ttf */; };
+		4C88BBB0627E437FAD1F10C2 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B55CCB8D0B334F09824F2AE4 /* Ubuntu-Medium.ttf */; };
+		B7876F12B6054548993ED7F3 /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B364E9D76D384451A6D6462E /* Ubuntu-MediumItalic.ttf */; };
+		A26CA38AE732446AB0FD2AD6 /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63DE62424342423BBCD5675E /* Ubuntu-Regular.ttf */; };
+		7B17BEF655DC4272A18513A1 /* Ubuntu-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AD718E6E226489A8A637BDF /* Ubuntu-RegularItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -391,6 +399,16 @@
 		94DE3DA0218AEFB300B60122 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94DE3DCE218AEFCE00B60122 /* ShareExt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareExt.m; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		07F5881E3F8A4B0F9529E949 /* RNReactNativeLinkPreview.xcodeproj */ = {isa = PBXFileReference; name = "RNReactNativeLinkPreview.xcodeproj"; path = "../node_modules/react-native-link-preview/ios/RNReactNativeLinkPreview.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		F1D3A99C140D42B28E18E11C /* libRNReactNativeLinkPreview.a */ = {isa = PBXFileReference; name = "libRNReactNativeLinkPreview.a"; path = "libRNReactNativeLinkPreview.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4051D079A19A43B3930546A8 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Bold.ttf"; path = "../assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9DD6050DA9B341C6B4D69BDC /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-BoldItalic.ttf"; path = "../assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5286252E7A844951B53EC899 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Light.ttf"; path = "../assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7BC7311A6AD84C0082027239 /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-LightItalic.ttf"; path = "../assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B55CCB8D0B334F09824F2AE4 /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Medium.ttf"; path = "../assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B364E9D76D384451A6D6462E /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-MediumItalic.ttf"; path = "../assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		63DE62424342423BBCD5675E /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Regular.ttf"; path = "../assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9AD718E6E226489A8A637BDF /* Ubuntu-RegularItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-RegularItalic.ttf"; path = "../assets/fonts/Ubuntu-RegularItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +437,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				7C8A2ABF551E4AF5A87AACC2 /* libRNReactNativeLinkPreview.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +643,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				07F5881E3F8A4B0F9529E949 /* RNReactNativeLinkPreview.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -646,6 +666,7 @@
 				94DE3D99218AEFB300B60122 /* ShareExt */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				7796A5CC90C543AC8669C7CA /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -690,6 +711,22 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		7796A5CC90C543AC8669C7CA /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				4051D079A19A43B3930546A8 /* Ubuntu-Bold.ttf */,
+				9DD6050DA9B341C6B4D69BDC /* Ubuntu-BoldItalic.ttf */,
+				5286252E7A844951B53EC899 /* Ubuntu-Light.ttf */,
+				7BC7311A6AD84C0082027239 /* Ubuntu-LightItalic.ttf */,
+				B55CCB8D0B334F09824F2AE4 /* Ubuntu-Medium.ttf */,
+				B364E9D76D384451A6D6462E /* Ubuntu-MediumItalic.ttf */,
+				63DE62424342423BBCD5675E /* Ubuntu-Regular.ttf */,
+				9AD718E6E226489A8A637BDF /* Ubuntu-RegularItalic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -792,7 +829,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -1173,6 +1210,14 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				7581F22675DF406985798EEB /* Ubuntu-Bold.ttf in Resources */,
+				3389A2E18B15425487D00F27 /* Ubuntu-BoldItalic.ttf in Resources */,
+				B41424CB75CA46618DB8ED18 /* Ubuntu-Light.ttf in Resources */,
+				CEDEEBC30DE1428694DDD6A2 /* Ubuntu-LightItalic.ttf in Resources */,
+				4C88BBB0627E437FAD1F10C2 /* Ubuntu-Medium.ttf in Resources */,
+				B7876F12B6054548993ED7F3 /* Ubuntu-MediumItalic.ttf in Resources */,
+				A26CA38AE732446AB0FD2AD6 /* Ubuntu-Regular.ttf in Resources */,
+				7B17BEF655DC4272A18513A1 /* Ubuntu-RegularItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1351,6 +1396,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/toby.app/toby";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1369,6 +1422,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/toby.app/toby";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1389,6 +1450,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = toby;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1408,6 +1473,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = toby;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1434,6 +1503,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1460,6 +1537,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1485,6 +1570,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/toby-tvOS.app/toby-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Debug;
 		};
@@ -1510,6 +1603,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/toby-tvOS.app/toby-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
+				);
 			};
 			name = Release;
 		};
@@ -1629,6 +1730,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-share-extension/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
 				);
 				INFOPLIST_FILE = ShareExt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1643,6 +1745,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Debug;
 		};
@@ -1664,6 +1770,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-share-extension/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-link-preview/ios",
 				);
 				INFOPLIST_FILE = ShareExt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1677,6 +1784,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Release;
 		};
