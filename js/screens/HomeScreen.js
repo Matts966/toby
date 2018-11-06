@@ -5,6 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { createMaterialTopTabNavigator, MaterialTopTabBar } from 'react-navigation-tabs';
 import _ from 'lodash';
 
 import { fetchBookmarks } from '../actions/bookmarks';
@@ -42,50 +43,59 @@ export default class HomeScreen extends React.Component {
       });
   }
 
-  render() {
+  tabsNavigator = () => {
+    const defaultTeam = {
+      id: null,
+      name: 'My Collections',
+    };
     const { teams, lists, bookmarks } = this.state;
+    const tabs = _.reduce(
+      [defaultTeam, ...teams],
+      (routes, { name, id }) => ({
+        ...routes,
+        [_.capitalize(name)]: () => (
+          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+            {_.filter(lists, { teamId: id }).map(({ id: listId, title }) => (
+              <View key={listId}>
+                <Text style={styles.lists}>
+                  {title}
+                </Text>
+                {_.filter(bookmarks, { listId }).map(({ id: bookmarkId, url }) => (
+                  <Text
+                    key={bookmarkId}
+                    style={styles.bookmarks}
+                  >
+                    {url}
+                  </Text>
+                ))}
+              </View>
+            ))}
+          </ScrollView>
+        ),
+      }),
+      {},
+    );
+
+    return createMaterialTopTabNavigator(tabs, {
+      tabBarComponent: props => (
+        <View>
+          <View>
+            <MaterialTopTabBar {...props}><Text>Bla</Text></MaterialTopTabBar>
+          </View>
+          <View>
+            <Text>Bla</Text>
+          </View>
+        </View>
+      ),
+    });
+  }
+
+  render() {
+    const TabsNavigator = this.tabsNavigator();
 
     return (
       <View style={styles.container}>
-        <Text>TOBY</Text>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <Text style={styles.teams}>My Collections</Text>
-          {_.filter(lists, { teamId: null }).map(({ id: listId, title }) => (
-            <View key={listId}>
-              <Text style={styles.lists}>
-                {title}
-              </Text>
-              {_.filter(bookmarks, { listId }).map(({ id: bookmarkId, url }) => (
-                <Text
-                  key={bookmarkId}
-                  style={styles.bookmarks}
-                >
-                  {url}
-                </Text>
-              ))}
-            </View>
-          ))}
-          {teams.map(({ id: teamId, name }) => (
-            <View key={teamId}>
-              <Text style={styles.teams}>{name}</Text>
-              {_.filter(lists, { teamId }).map(({ id: listId, title }) => (
-                <View key={listId}>
-                  <Text style={styles.lists}>
-                    {title}
-                  </Text>
-                  {_.filter(bookmarks, { listId }).map(({ id: bookmarkId, url }) => (
-                    <Text
-                      key={bookmarkId}
-                      style={styles.bookmarks}
-                    >
-                      {url}
-                    </Text>
-                  ))}
-                </View>
-              ))}
-            </View>
-          ))}
-        </ScrollView>
+        <TabsNavigator />
       </View>
     );
   }
