@@ -6,6 +6,7 @@ import {
 import Menu, { MenuItem } from 'react-native-material-menu';
 
 import Text from './Text';
+import Icon from './Icon';
 
 import { colors, fonts } from '../constants/parameters';
 
@@ -96,9 +97,15 @@ export default class TabBar extends Component {
         <View>
           <Menu
             ref={this._menu}
-            button={<Text onPress={this.showMenu}>Show menu</Text>}
+            button={(
+              <TouchableOpacity onPress={this.showMenu}>
+                <Icon name="more-vert" />
+              </TouchableOpacity>
+            )}
           >
-            <MenuItem onPress={this.onLogout}>Logout</MenuItem>
+            <MenuItem onPress={this.onLogout}>
+              Logout
+            </MenuItem>
           </Menu>
         </View>
       </View>
@@ -132,6 +139,7 @@ const styles = StyleSheet.create({
     width: TABLABEL,
   },
   labelText: {
+    paddingTop: 2,
     color: colors.secondaryTransparent,
     marginHorizontal: 4,
     ...fonts.medium,
