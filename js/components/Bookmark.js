@@ -71,8 +71,8 @@ export default class Bookmark extends PureComponent {
 const styles = StyleSheet.create({
   bookmark: {
     backgroundColor: colors.white,
+    borderColor: colors.grey,
     ...colors.shadow,
-    borderRadius: 4,
   },
   container: {
     paddingVertical: 8,

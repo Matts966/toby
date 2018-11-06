@@ -42,8 +42,8 @@ export const fonts = {
   lightItalic: { fontFamily: `${fontFamily}-lightItalic`, fontWeight: undefined },
   medium: { fontFamily: `${fontFamily}-Medium`, fontWeight: undefined },
   mediumItalic: { fontFamily: `${fontFamily}-MediumItalic`, fontWeight: undefined },
-  regular: { fontFamily: `${fontFamily}-Regular`, fontWeight: undefined },
-  regularItalic: { fontFamily: `${fontFamily}-RegularItalic`, fontWeight: undefined },
+  regular: { fontFamily: `${fontFamily}`, fontWeight: undefined },
+  italic: { fontFamily: `${fontFamily}-Italic`, fontWeight: undefined },
   bold: { fontFamily: `${fontFamily}-Bold`, fontWeight: undefined },
   boldItalic: { fontFamily: `${fontFamily}-BoldItalic`, fontWeight: undefined },
 };

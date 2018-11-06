@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
   },
   label: {
     height: '100%',
-    paddingTop: 4,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 4,

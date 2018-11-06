@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import _ from 'lodash';
 
@@ -59,7 +60,7 @@ export default class HomeScreen extends React.Component {
       (routes, { name, id }) => ({
         ...routes,
         [_.capitalize(name)]: () => (
-          <ScrollView style={styles.tabs} contentContainerStyle={styles.contentContainer}>
+          <ScrollView style={styles.tabs}>
             {_.filter(lists, { teamId: id }).map(({ id: listId, title }) => (
               <View
                 key={listId}
@@ -92,9 +93,9 @@ export default class HomeScreen extends React.Component {
     const TabsNavigator = this.tabsNavigator();
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <TabsNavigator />
-      </View>
+      </SafeAreaView>
     );
   }
 }
