@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Image, View, StyleSheet,
+  TouchableOpacity, Image, View, StyleSheet, Linking,
 } from 'react-native';
 
 import Text from './Text';
@@ -14,6 +14,8 @@ export default class Bookmark extends PureComponent {
     data: PropTypes.object,
   }
 
+  onPress = () => Linking.openURL(this.props.data.url);
+
   render() {
     const {
       style,
@@ -25,11 +27,13 @@ export default class Bookmark extends PureComponent {
     } = this.props;
 
     return (
-      <View
+      <TouchableOpacity
+        activeOpacity={0.6}
         style={[
           styles.bookmark,
           style,
         ]}
+        onPress={this.onPress}
       >
         <View style={[styles.container, styles.header]}>
           <View
@@ -63,7 +67,7 @@ export default class Bookmark extends PureComponent {
             </Text>
           </View>
         )}
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -71,7 +75,7 @@ export default class Bookmark extends PureComponent {
 const styles = StyleSheet.create({
   bookmark: {
     backgroundColor: colors.white,
-    borderColor: colors.grey,
+    borderRadius: 4,
     ...colors.shadow,
   },
   container: {
@@ -88,6 +92,7 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     marginRight: 8,
+    opacity: 0.8,
   },
   noFavIcon: {
     backgroundColor: colors.grey,

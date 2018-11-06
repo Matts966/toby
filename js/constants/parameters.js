@@ -1,5 +1,5 @@
 import {
-  Dimensions, Platform, StatusBar, StyleSheet,
+  Dimensions, Platform, StatusBar,
 } from 'react-native';
 import hexRgb from 'hex-rgb';
 
@@ -23,15 +23,16 @@ const plain = {
 export const colors = {
   ...plain,
   whiteTransparent: rgba(plain.white, 0.8),
+  primaryTransparentLight: rgba(plain.primary, 0.4),
   secondaryTransparent: rgba(plain.secondary, 0.8),
   secondaryTransparentLight: rgba(plain.secondary, 0.4),
   shadow: {
     elevation: 4,
     shadowColor: 'black',
-    shadowOpacity: 0.1,
-    shadowRadius: StyleSheet.hairlineWidth,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
     shadowOffset: {
-      height: StyleSheet.hairlineWidth,
+      height: 2,
     },
   },
 };

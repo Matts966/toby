@@ -55,31 +55,60 @@ export default class HomeScreen extends React.Component {
       name: 'My Collections',
     };
     const { teams, lists, bookmarks } = this.state;
+
     const tabs = _.reduce(
       [defaultTeam, ...teams],
       (routes, { name, id }) => ({
         ...routes,
-        [_.capitalize(name)]: () => (
-          <ScrollView style={styles.tabs}>
-            {_.filter(lists, { teamId: id }).map(({ id: listId, title }) => (
-              <View
-                key={listId}
-                style={styles.lists}
-              >
-                <Text style={styles.listsTitle}>
-                  {title}
-                </Text>
-                {_.filter(bookmarks, { listId }).map(bookmark => (
+        [_.capitalize(name)]: () => {
+          const scrollViewElements = [];
+
+          _.filter(lists, { teamId: id }).forEach(({ id: listId, title }) => {
+            scrollViewElements.push({
+              key: listId,
+              data: { title },
+              type: 'title',
+            });
+
+            _.filter(bookmarks, { listId }).forEach((bookmark) => {
+              scrollViewElements.push({
+                key: bookmark.id,
+                type: 'bookmark',
+                data: bookmark,
+              });
+            });
+          });
+
+          return (
+            <ScrollView
+              style={styles.tabs}
+              stickyHeaderIndices={_.map(_.keys(_.pickBy(scrollViewElements, { type: 'title' })), Number)}
+            >
+              {_.map(scrollViewElements, ({ key, data, type }) => ((type !== 'bookmark') ? (
+                <View
+                  key={key}
+                  style={styles.listsTitleWrapper}
+                >
+                  <View style={styles.listsTitleHelper}>
+                    <Text style={styles.listsTitle}>
+                      {data.title}
+                    </Text>
+                  </View>
+                </View>
+              ) : (
+                <View
+                  key={key}
+                  style={styles.bookmarkWrapper}
+                >
                   <Bookmark
-                    key={bookmark.id}
                     style={styles.bookmark}
-                    data={bookmark}
+                    data={data}
                   />
-                ))}
-              </View>
-            ))}
-          </ScrollView>
-        ),
+                </View>
+              )))}
+            </ScrollView>
+          );
+        },
       }),
       {},
     );
@@ -106,16 +135,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   tabs: {
-    padding: 16,
+    paddingBottom: 16,
   },
-  lists: {
-    marginBottom: 16,
+  listsTitleWrapper: {
+    marginTop: 16,
+    paddingHorizontal: 16,
+    backgroundColor: colors.white,
+    marginBottom: 8,
+    zIndex: 9,
+  },
+  listsTitleHelper: {
+    borderBottomWidth: 1,
+    borderColor: colors.primaryTransparentLight,
   },
   listsTitle: {
-    color: colors.secondary,
-    fontSize: 18,
-    ...fonts.medium,
+    marginTop: 8,
+    color: colors.primary,
+    fontSize: 20,
+    ...fonts.bold,
     paddingVertical: 6,
+  },
+  bookmarkWrapper: {
+    paddingHorizontal: 16,
+    zIndex: 1,
   },
   bookmark: {
     marginHorizontal: 4,
