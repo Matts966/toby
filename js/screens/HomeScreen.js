@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ScrollView,
   StyleSheet,
@@ -6,8 +7,10 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
+import { logout } from '../actions/auth';
 import { fetchBookmarks } from '../actions/bookmarks';
 
 import TabBar from '../components/TabBar';
@@ -16,10 +19,15 @@ import Bookmark from '../components/Bookmark';
 
 import { colors, fonts } from '../constants/parameters';
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  static propTypes = {
+    dispatch: PropTypes.func,
+    navigation: PropTypes.object,
+  }
 
   constructor(props) {
     super(props);
@@ -47,6 +55,11 @@ export default class HomeScreen extends React.Component {
           teams, lists, bookmarks,
         });
       });
+  }
+
+  logout = () => {
+    this.props.dispatch(logout());
+    this.props.navigation.navigate('Auth');
   }
 
   tabsNavigator = () => {
@@ -123,11 +136,13 @@ export default class HomeScreen extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <TabsNavigator />
+        <TabsNavigator screenProps={{ logout: this.logout }} />
       </SafeAreaView>
     );
   }
 }
+
+export default connect()(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {

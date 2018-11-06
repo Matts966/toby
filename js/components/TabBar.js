@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   TouchableOpacity, View, StyleSheet, Animated,
 } from 'react-native';
+import Menu, { MenuItem } from 'react-native-material-menu';
 
 import Text from './Text';
 
@@ -12,12 +13,29 @@ const TABLABEL = 130;
 
 export default class TabBar extends Component {
   static propTypes = {
+    screenProps: PropTypes.object,
     navigation: PropTypes.object,
     position: PropTypes.object,
     navigationState: PropTypes.object,
   }
 
+  constructor(props) {
+    super(props);
+
+    this._menu = React.createRef();
+  }
+
+  hideMenu = () => {
+    this._menu.current.hide();
+  };
+
+  showMenu = () => {
+    this._menu.current.show();
+  };
+
   onTabPress = routeName => () => this.props.navigation.navigate(routeName)
+
+  onLogout = () => this.props.screenProps.logout();
 
   _renderIndicator = () => {
     const { position, navigationState } = this.props;
@@ -76,7 +94,12 @@ export default class TabBar extends Component {
           </View>
         </View>
         <View>
-          <Text>BLA</Text>
+          <Menu
+            ref={this._menu}
+            button={<Text onPress={this.showMenu}>Show menu</Text>}
+          >
+            <MenuItem onPress={this.onLogout}>Logout</MenuItem>
+          </Menu>
         </View>
       </View>
     );
