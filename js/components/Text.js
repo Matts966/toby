@@ -17,7 +17,7 @@ export default class Text extends Component {
 
   render() {
     const {
-      uppercase, lowercase, capitalize, style, children, note,
+      uppercase, lowercase, capitalize, style, children,
     } = this.props;
 
     let text;

@@ -21,6 +21,7 @@ const plain = {
 export const colors = {
   ...plain,
   whiteTransparent: rgba(plain.white, 0.8),
+  secondaryTransparent: rgba(plain.secondary, 0.8),
 };
 
 const fontFamily = 'Ubuntu';

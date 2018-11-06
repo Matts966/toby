@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   bookmarks: {
-    fontSize: 14,
     paddingLeft: 16,
     fontSize: 18,
   },
