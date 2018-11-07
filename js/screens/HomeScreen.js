@@ -7,10 +7,11 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { logout } from '../actions/auth';
+import Api from '../libs/requests';
+import Store from '../libs/store';
+
 import { fetchBookmarks } from '../actions/bookmarks';
 
 import TabBar from '../components/TabBar';
@@ -19,13 +20,12 @@ import Bookmark from '../components/Bookmark';
 
 import { colors, fonts } from '../constants/parameters';
 
-class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   static propTypes = {
-    dispatch: PropTypes.func,
     navigation: PropTypes.object,
   }
 
@@ -58,7 +58,8 @@ class HomeScreen extends React.Component {
   }
 
   logout = () => {
-    this.props.dispatch(logout());
+    Store.removeItem('token');
+    Api.removeAuthorisation();
     this.props.navigation.navigate('Auth');
   }
 
@@ -141,8 +142,6 @@ class HomeScreen extends React.Component {
     );
   }
 }
-
-export default connect()(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {

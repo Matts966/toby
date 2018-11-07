@@ -6,19 +6,17 @@ import {
   TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import { connect } from 'react-redux';
 
 import Api from '../../libs/requests';
+import Store from '../../libs/store';
 import ShareExtHelper from '../../libs/shareExtHelper';
 
-import { apiLogin, authenticate } from '../../actions/auth';
+import { apiLogin } from '../../actions/auth';
 import Spinner from '../../components/Spinner';
 
-class LoginScreen extends React.Component {
+export default class LoginScreen extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func,
     navigation: PropTypes.object,
-    token: PropTypes.string,
   }
 
   static navigationOptions = {
@@ -29,28 +27,30 @@ class LoginScreen extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
+      email: 'julien.rougeron@gmail.com',
+      password: 'YRXmbp91',
       error: null,
       loading: false,
     };
 
-    if (props.token) {
-      Api.setAuthorisation(props.token);
+    const token = Store.getItem('token');
+
+    if (token) {
+      Api.setAuthorisation(token);
       props.navigation.navigate(ShareExtHelper.share ? 'ShareScreen' : 'App');
     }
   }
 
   onLoginPress = () => {
     const { email, password } = this.state;
-    const { dispatch, navigation } = this.props;
+    const { navigation } = this.props;
 
     this.setState({ loading: true });
 
     apiLogin({ email, password })
-      .then(({ token, ...user }) => {
+      .then(({ token }) => {
         Api.setAuthorisation(token);
-        dispatch(authenticate({ token, user }));
+        Store.setItem('token', token);
         navigation.navigate(ShareExtHelper.share ? 'ShareScreen' : 'App');
       })
       .catch(({ error }) => this.setState({
@@ -88,12 +88,6 @@ class LoginScreen extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  token: state.auth.token,
-});
-
-export default connect(mapStateToProps)(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {
