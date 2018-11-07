@@ -1,7 +1,8 @@
 import { composeWithDevTools } from 'remote-redux-devtools';
 import { createStore, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+
+import storage from './libs/storage';
 
 import reducers from './reducers';
 

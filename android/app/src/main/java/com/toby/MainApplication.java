@@ -3,6 +3,7 @@ package com.toby;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.poppop.RNReactNativeSharedGroupPreferences.RNReactNativeSharedGroupPreferencesPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNReactNativeSharedGroupPreferencesPackage(),
             new VectorIconsPackage(),
           new RNReactNativeLinkPreviewPackage(),
           new SharePackage()
