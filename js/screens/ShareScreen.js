@@ -11,6 +11,8 @@ import ShareExtension from 'react-native-share-extension';
 import LinkPreview from 'react-native-link-preview';
 import _ from 'lodash';
 
+import ShareExtHelper from '../libs/shareExtHelper';
+
 import { fetchBookmarks, addBookmark } from '../actions/bookmarks';
 
 import Bookmark from '../components/Bookmark';
@@ -63,6 +65,10 @@ export default class ShareScreen extends Component {
     ]).then(() => {
       this.setState({ loading: false });
     });
+  }
+
+  componentWillUnmount() {
+    ShareExtHelper.initialize(false);
   }
 
   onClose = () => ShareExtension.close()
