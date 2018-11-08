@@ -3,11 +3,11 @@ import storage from './instance';
 const STORE_NAME = 'store';
 
 class Store {
-  data = {}
+  data = {};
 
   hydrate = () => storage.getItem(STORE_NAME)
     .then((data) => {
-      this.data = data;
+      this.data = data || {};
     }).catch(() => true);
 
   onDataChange = () => storage.setItem(STORE_NAME, this.data);

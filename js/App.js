@@ -24,9 +24,7 @@ export default (share = false) => (
     }
 
     componentWillMount() {
-      Store.hydrate().then(() => {
-        this.setState({ loaded: true });
-      });
+      Store.hydrate().then(() => this.setState({ loaded: true }));
     }
 
     render() {
