@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-} from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
 import Api from '../../libs/requests';
@@ -12,7 +8,14 @@ import Store from '../../libs/store';
 import ShareExtHelper from '../../libs/shareExtHelper';
 
 import { apiLogin } from '../../actions/auth';
+
 import Spinner from '../../components/Spinner';
+import Text from '../../components/Text';
+import TextInput from '../../components/TextInput';
+
+import { colors, fonts } from '../../parameters';
+
+const logo = require('../../../assets/images/logo.png');
 
 export default class LoginScreen extends React.Component {
   static propTypes = {
@@ -66,19 +69,29 @@ export default class LoginScreen extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <Text>Login</Text>
-        <Text>Email</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => this.setState({ email: text })}
-          value={email}
+        <Image
+          source={logo}
+          style={styles.logo}
+          resizeMode="contain"
         />
-        <Text>Password</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => this.setState({ password: text })}
-          value={password}
-        />
+        <Text style={styles.title}>
+          Log in to Toby
+        </Text>
+        <View style={styles.inputsWrapper}>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => this.setState({ email: text })}
+            defaultValue={email}
+            label="Email"
+          />
+          <TextInput
+            style={styles.input}
+            password
+            onChangeText={text => this.setState({ password: text })}
+            defaultValue={password}
+            label="Password"
+          />
+        </View>
         <Text onPress={this.onLoginPress}>Login</Text>
         { error && (
           <Text>{error}</Text>
@@ -92,10 +105,24 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    backgroundColor: colors.white,
+    alignItems: 'center',
+    padding: 48,
+  },
+  logo: {
+    width: 56,
+    height: 56,
+  },
+  title: {
+    marginTop: 36,
+    fontSize: 20,
+    ...fonts.medium,
+  },
+  inputsWrapper: {
+    marginTop: 24,
+    width: '100%',
   },
   input: {
-    height: 40,
+    marginTop: 12,
   },
 });
