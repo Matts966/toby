@@ -6,7 +6,7 @@ import {
 
 import Text from './Text';
 
-import { colors, fonts } from '../constants/parameters';
+import { colors, fonts } from '../parameters';
 
 export default class Bookmark extends PureComponent {
   static propTypes = {

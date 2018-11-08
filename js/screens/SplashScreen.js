@@ -3,7 +3,7 @@ import {
   View, StyleSheet, Image, StatusBar,
 } from 'react-native';
 
-import { colors } from '../constants/parameters';
+import { colors } from '../parameters';
 
 const logoWhite = require('../../assets/images/logo_white.jpg');
 

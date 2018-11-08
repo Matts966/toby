@@ -5,7 +5,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { colors } from '../constants/parameters';
+import { colors } from '../parameters';
 
 const setMapping = {
   MaterialIcon,

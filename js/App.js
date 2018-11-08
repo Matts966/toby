@@ -7,7 +7,7 @@ import ShareExtHelper from './libs/shareExtHelper';
 import MainNavigator from './navigation/MainNavigator';
 import SplashScreen from './screens/SplashScreen';
 
-import { colors } from './constants/parameters';
+import { colors } from './parameters';
 
 YellowBox.ignoreWarnings([
   'Remote debugger',

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 
-import { colors } from '../constants/parameters';
+import { colors } from '../parameters';
 
 export default class Spinner extends PureComponent {
   static propTypes = {

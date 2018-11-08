@@ -8,7 +8,7 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import Text from './Text';
 import Icon from './Icon';
 
-import { colors, fonts } from '../constants/parameters';
+import { colors, fonts } from '../parameters';
 
 const TABLABEL = 130;
 

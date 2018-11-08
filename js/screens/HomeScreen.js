@@ -18,7 +18,7 @@ import TabBar from '../components/TabBar';
 import Text from '../components/Text';
 import Bookmark from '../components/Bookmark';
 
-import { colors, fonts } from '../constants/parameters';
+import { colors, fonts } from '../parameters';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {

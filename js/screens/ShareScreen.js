@@ -14,7 +14,7 @@ import LinkPreview from 'react-native-link-preview';
 
 import { fetchBookmarks, addBookmark } from '../actions/bookmarks';
 
-import { colors } from '../constants/parameters';
+import { colors } from '../parameters';
 
 export default class ShareScreen extends Component {
   constructor(props) {

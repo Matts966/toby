@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Text as RNText, StyleSheet } from 'react-native';
 import _ from 'lodash';
 
-import { fonts, colors } from '../constants/parameters';
+import { fonts, colors } from '../parameters';
 
 export default class Text extends Component {
   static propTypes = {
