@@ -72,6 +72,15 @@ class Api {
     };
   }
 
+  removeAuthorisation() {
+    const { Authorization, ...headers } = this.baseConfig.headers;
+
+    this.baseConfig = {
+      ...this.baseConfig,
+      headers,
+    };
+  }
+
   // thanks http://stackoverflow.com/a/12040639/5332286
   static queryString(params) {
     const s = Object.keys(params).map(key => (

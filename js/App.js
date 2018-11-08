@@ -1,33 +1,41 @@
 import React from 'react';
 import { YellowBox } from 'react-native';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 
+import Store from './libs/store';
 import ShareExtHelper from './libs/shareExtHelper';
 
 import MainNavigator from './navigation/MainNavigator';
-
-import configureStore from './configureStore';
+import SplashScreen from './screens/SplashScreen';
 
 YellowBox.ignoreWarnings([
   'Remote debugger',
 ]);
 
-const { persistor, store } = configureStore();
-
 export default (share = false) => (
   class App extends React.Component {
-    componentDidMount() {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        loaded: false,
+      };
+
       ShareExtHelper.initialize(share);
     }
 
+    componentWillMount() {
+      Store.hydrate().then(() => {
+        this.setState({ loaded: true });
+      });
+    }
+
     render() {
-      return (
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <MainNavigator />
-          </PersistGate>
-        </Provider>
+      const { loaded } = this.state;
+
+      return !loaded ? (
+        <SplashScreen />
+      ) : (
+        <MainNavigator />
       );
     }
   }
