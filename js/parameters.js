@@ -15,9 +15,12 @@ function rgba(hex, a = null) {
 const plain = {
   primary: '#fa507b',
   secondary: '#8587A4',
-  grey: '#C5C7D5',
+  grey: '#f5f5fb',
+  greyDark: '#C5C7D5',
   white: '#ffffff',
+  whiteDark: '#fbfbfd',
   black: '#222222',
+  blackLight: '#5e5d66',
 };
 
 export const colors = {

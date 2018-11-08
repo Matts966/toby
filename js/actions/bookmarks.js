@@ -5,5 +5,19 @@ export function addBookmark(data) {
 }
 
 export function fetchBookmarks() {
-  return Api.get('states');
+  return Api.get('states')
+    .then((res) => {
+      const { teams } = res;
+      let { lists } = res;
+      const bookmarks = [];
+
+      lists = lists.map(({ cards, ...list }) => {
+        bookmarks.push(...cards);
+        return list;
+      });
+
+      return {
+        teams, lists, bookmarks,
+      };
+    });
 }

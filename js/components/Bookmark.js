@@ -12,9 +12,14 @@ export default class Bookmark extends PureComponent {
   static propTypes = {
     style: PropTypes.any,
     data: PropTypes.object,
+    disabled: PropTypes.bool,
   }
 
-  onPress = () => Linking.openURL(this.props.data.url);
+  static defaultProps = {
+    disabled: false,
+  }
+
+  onPress = () => (!this.props.disabled && Linking.openURL(this.props.data.url));
 
   render() {
     const {
@@ -27,47 +32,52 @@ export default class Bookmark extends PureComponent {
     } = this.props;
 
     return (
-      <TouchableOpacity
-        activeOpacity={0.6}
+      <View
         style={[
           styles.bookmark,
           style,
         ]}
-        onPress={this.onPress}
       >
-        <View style={[styles.container, styles.header]}>
-          <View
-            style={[
-              styles.favIconWrapper,
-              !favIconUrl && styles.noFavIcon,
-            ]}
-          >
-            {!!favIconUrl && (
-              <Image
-                resizeMode="contain"
-                source={{ uri: favIconUrl }}
-                style={styles.favIcon}
-              />
-            )}
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={this.onPress}
+        >
+          <View style={styles.container}>
+            <View style={styles.header}>
+              <View
+                style={[
+                  styles.favIconWrapper,
+                  !favIconUrl && styles.noFavIcon,
+                ]}
+              >
+                {!!favIconUrl && (
+                  <Image
+                    resizeMode="contain"
+                    source={{ uri: favIconUrl }}
+                    style={styles.favIcon}
+                  />
+                )}
+              </View>
+              <Text
+                style={styles.title}
+                numberOfLines={2}
+              >
+                { title }
+              </Text>
+            </View>
           </View>
-          <Text
-            style={styles.title}
-            numberOfLines={2}
-          >
-            { title }
-          </Text>
-        </View>
-        { !!description && (
-          <View style={[styles.container, styles.footer]}>
-            <Text
-              style={styles.description}
-              numberOfLines={1}
-            >
-              { description }
-            </Text>
-          </View>
-        )}
-      </TouchableOpacity>
+          { !!description && (
+            <View style={[styles.container, styles.footer]}>
+              <Text
+                style={styles.description}
+                numberOfLines={1}
+              >
+                { description }
+              </Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -85,7 +95,6 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    flex: 1,
   },
   favIconWrapper: {
     borderRadius: 50,
@@ -95,7 +104,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   noFavIcon: {
-    backgroundColor: colors.grey,
+    backgroundColor: colors.greyDark,
   },
   favIcon: {
     width: '100%',
@@ -115,7 +124,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 12,
-    ...fonts.regular,
-    color: colors.grey,
+    ...fonts.light,
+    color: colors.greyDark,
   },
 });

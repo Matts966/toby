@@ -41,20 +41,9 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     fetchBookmarks()
-      .then((res) => {
-        const { teams } = res;
-        let { lists } = res;
-        const bookmarks = [];
-
-        lists = lists.map(({ cards, ...list }) => {
-          bookmarks.push(...cards);
-          return list;
-        });
-
-        this.setState({
-          teams, lists, bookmarks,
-        });
-      });
+      .then(
+        ({ teams, lists, bookmarks }) => this.setState({ teams, lists, bookmarks }),
+      );
   }
 
   logout = () => {

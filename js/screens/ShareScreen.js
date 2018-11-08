@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   TouchableOpacity,
   StyleSheet,
-  Picker,
-  Button,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import ShareExtension from 'react-native-share-extension';
 import LinkPreview from 'react-native-link-preview';
+import _ from 'lodash';
 
 import { fetchBookmarks, addBookmark } from '../actions/bookmarks';
 
-import { colors } from '../parameters';
+import Bookmark from '../components/Bookmark';
+import Icon from '../components/Icon';
+import Text from '../components/Text';
+import Button from '../components/Button';
+
+import { colors, sizes, fonts } from '../parameters';
+
+const TABS = {
+  0: 'All',
+  1: 'My Collections',
+  2: 'Shared',
+};
 
 export default class ShareScreen extends Component {
   constructor(props) {
@@ -23,67 +33,93 @@ export default class ShareScreen extends Component {
     this.state = {
       isOpen: true,
       lists: [],
-      selectedList: null,
       loading: false,
       bookmark: {},
+      index: 0,
     };
+
+    this._menu = React.createRef();
   }
 
-  componentDidMount() {
-    fetchBookmarks()
-      .then((res) => {
-        let { lists } = res;
-        const bookmarks = [];
+  componentWillMount() {
+    this.setState({ loading: true });
 
-        lists = lists.map(({ cards, ...list }) => {
-          bookmarks.push(...cards);
-          return list;
-        });
-
-        this.setState({ lists });
-      });
-
-    ShareExtension.data()
-      .then(({ value }) => LinkPreview.getPreview(value))
-      .then(bookmark => this.setState({ bookmark }));
+    Promise.all([
+      ShareExtension.data()
+        .then(({ value }) => LinkPreview.getPreview(value))
+        .then(({
+          url, title, description, favicons, images,
+        }) => this.setState({
+          bookmark: {
+            url,
+            title,
+            description,
+            favIconUrl: favicons && favicons.length && favicons[0] || '',
+            image: images && images.length && images[0] || '',
+          },
+        })),
+      fetchBookmarks()
+        .then(({ lists }) => this.setState({ lists })),
+    ]).then(() => {
+      this.setState({ loading: false });
+    });
   }
 
   onClose = () => ShareExtension.close()
 
-  closing = () => this.setState({ isOpen: false });
-
-  onListSelect = id => this.setState({ selectedList: id });
-
-  onAdd = () => {
+  async onAdd() {
     const {
-      bookmark: {
-        url,
-        title,
-        description,
-        images,
-        favicons,
-      },
-      selectedList,
+      bookmark,
+      lists,
     } = this.state;
+    const selectedLists = _.filter(lists, { selected: true });
 
     this.setState({ loading: true });
-    addBookmark({
-      url,
-      title,
-      description,
-      image: images && images.length && images[0],
-      favIconUrl: favicons && favicons.length && favicons[0],
-      listId: selectedList,
-    }).then(() => {
-      this.setState({ loading: false });
-      this.onClose();
-    }).catch(() => this.setState({ loading: false }));
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < selectedLists.length; i++) {
+      // eslint-disable-next-line no-await-in-loop
+      await addBookmark({
+        ...bookmark,
+        listId: selectedLists[i].id,
+      });
+    }
+
+    this.setState({ loading: false });
+    this.onClose();
   }
+
+  closing = () => this.setState({ isOpen: false });
+
+  onTabPress = index => () => this.setState({ index })
+
+  onCollectionPress = id => () => this.setState(prevState => ({
+    lists: _.map(prevState.lists, list => ((list.id === id) ? ({
+      ...list,
+      selected: !list.selected,
+    }) : list)),
+  }))
 
   render() {
     const {
-      isOpen, bookmark, lists, loading,
+      isOpen, bookmark, lists, loading, index,
     } = this.state;
+
+    let collections;
+
+    switch (index) {
+      case 1:
+        collections = _.filter(lists, { teamId: null });
+        break;
+      case 2:
+        collections = _.filter(lists, ({ teamId }) => teamId);
+        break;
+      case 0:
+      default:
+        collections = lists;
+    }
+
+    const valid = _.size(_.filter(lists, { selected: true }));
 
     return (
       <Modal
@@ -99,34 +135,66 @@ export default class ShareScreen extends Component {
               onPress={this.closing}
               style={styles.close}
             >
-              <Text>Close</Text>
+              <Icon name="close" />
             </TouchableOpacity>
-            <View>
-              <Text>
-                Add
-              </Text>
-              <Text numberOfLines={1}>
-                { bookmark.url }
-              </Text>
-              <Text>
-                To
-              </Text>
-            </View>
-            <Picker onValueChange={this.onListSelect}>
-              {lists.map(({ id, title }) => (
-                <Picker.Item
-                  key={id}
-                  label={title}
-                  value={id}
-                />
-              ))}
-              <Picker.Item label="JavaScript" value="js" />
-            </Picker>
-            <Button
-              onPress={this.onAdd}
-              title="Add Bookmark"
-              disabled={loading}
+            <Text style={styles.title}>
+              Add a new Bookmark
+            </Text>
+            <Bookmark
+              style={styles.bookmark}
+              data={bookmark}
+              disabled
             />
+            <View style={styles.collections}>
+              <View style={styles.tabsWrapper}>
+                {_.map(TABS, (title, i) => (
+                  <TouchableOpacity
+                    key={title}
+                    onPress={this.onTabPress(+i)}
+                    style={[
+                      styles.tabLabel,
+                      (index === +i) && styles.current,
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.label,
+                        (index === +i) && styles.labelSelected,
+                      ]}
+                    >
+                      { title }
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+              <View>
+                <ScrollView style={styles.scrollView}>
+                  {_.map(collections, ({ title, id, selected }) => (
+                    <TouchableOpacity
+                      key={id}
+                      style={styles.collection}
+                      onPress={this.onCollectionPress(id)}
+                    >
+                      {selected && (
+                        <Icon style={styles.checkIcon} name="check" />
+                      )}
+                      <Text
+                        style={styles.collectionTitle}
+                      >
+                        { title }
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+                <Button
+                  style={styles.button}
+                  onPress={() => this.onAdd()}
+                  disabled={!valid}
+                >
+                  <Text>Add Bookmark</Text>
+                </Button>
+              </View>
+            </View>
             {loading && (
               <View style={styles.spinnerWrapper}>
                 <ActivityIndicator
@@ -152,17 +220,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   body: {
-    borderColor: 'green',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    height: 200,
-    width: 300,
-    padding: 16,
-    justifyContent: 'space-between',
+    width: 0.8 * sizes.width,
+    borderRadius: 4,
+    backgroundColor: colors.white,
+    padding: 24,
   },
-  bookmarks: {
-    fontSize: 14,
-    paddingLeft: 16,
+  title: {
+    fontSize: 20,
+    color: colors.primary,
+  },
+  bookmark: {
+    marginVertical: 24,
   },
   close: {
     position: 'absolute',
@@ -178,5 +246,55 @@ const styles = StyleSheet.create({
     backgroundColor: colors.whiteTransparent,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  scrollView: {
+    height: 130,
+  },
+  tabsWrapper: {
+    flexDirection: 'row',
+    marginBottom: 12,
+  },
+  tabLabel: {
+    backgroundColor: colors.grey,
+    marginRight: 8,
+    borderRadius: 2,
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+  },
+  current: {
+    borderBottomWidth: 2,
+    borderColor: colors.primary,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  label: {
+    ...fonts.light,
+    color: colors.secondary,
+  },
+  labelSelected: {
+    color: colors.black,
+  },
+  collection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.whiteDark,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    borderBottomWidth: 1,
+    borderRadius: 1,
+    borderColor: colors.secondaryTransparentLight,
+  },
+  checkIcon: {
+    fontSize: 16,
+    color: colors.primary,
+    marginRight: 8,
+  },
+  collectionTitle: {
+    flex: 1,
+    fontSize: 16,
+    color: colors.blackLight,
+  },
+  button: {
+    marginTop: 24,
   },
 });
