@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Image, View } from 'react-native';
+import {
+  StyleSheet, Image, View, KeyboardAvoidingView,
+} from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
 import Api from '../../libs/requests';
@@ -12,6 +14,8 @@ import { apiLogin } from '../../actions/auth';
 import Spinner from '../../components/Spinner';
 import Text from '../../components/Text';
 import TextInput from '../../components/TextInput';
+import Button from '../../components/Button';
+import Error from '../../components/Error';
 
 import { colors, fonts } from '../../parameters';
 
@@ -62,47 +66,59 @@ export default class LoginScreen extends React.Component {
       }));
   }
 
+  onClose = () => this.setState({ error: null })
+
   render() {
     const {
       email, password, error, loading,
     } = this.state;
 
     return (
-      <SafeAreaView style={styles.container}>
-        <Image
-          source={logo}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <Text style={styles.title}>
-          Log in to Toby
-        </Text>
-        <View style={styles.inputsWrapper}>
-          <TextInput
-            style={styles.input}
-            onChangeText={text => this.setState({ email: text })}
-            defaultValue={email}
-            label="Email"
+      <SafeAreaView style={styles.safeArea}>
+        <KeyboardAvoidingView style={styles.container} enabled={false} behavior="height">
+          <Image
+            source={logo}
+            style={styles.logo}
+            resizeMode="contain"
           />
-          <TextInput
-            style={styles.input}
-            password
-            onChangeText={text => this.setState({ password: text })}
-            defaultValue={password}
-            label="Password"
-          />
-        </View>
-        <Text onPress={this.onLoginPress}>Login</Text>
-        { error && (
-          <Text>{error}</Text>
-        )}
-        <Spinner overlay visible={loading} />
+          <Text style={styles.title}>
+            Log in to Toby
+          </Text>
+          <View style={styles.inputsWrapper}>
+            {!!error && (
+              <Error text={error} onClose={this.onClose} />
+            )}
+            <TextInput
+              style={styles.input}
+              onChangeText={text => this.setState({ email: text })}
+              defaultValue={email}
+              label="Email"
+            />
+            <TextInput
+              style={styles.input}
+              password
+              onChangeText={text => this.setState({ password: text })}
+              defaultValue={password}
+              label="Password"
+            />
+          </View>
+          <Button
+            style={styles.button}
+            onPress={this.onLoginPress}
+          >
+            <Text>Login to Toby</Text>
+          </Button>
+          <Spinner overlay visible={loading} />
+        </KeyboardAvoidingView>
       </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.white,
@@ -121,8 +137,14 @@ const styles = StyleSheet.create({
   inputsWrapper: {
     marginTop: 24,
     width: '100%',
+    flex: 1,
+    justifyContent: 'flex-start',
   },
   input: {
     marginTop: 12,
+  },
+  button: {
+    height: 64,
+    paddingHorizontal: 48,
   },
 });
