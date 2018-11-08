@@ -66,6 +66,8 @@ export default class LoginScreen extends React.Component {
       }));
   }
 
+  onSignUpPress = () => this.props.navigation.navigate('SignUp');
+
   onClose = () => this.setState({ error: null })
 
   render() {
@@ -108,6 +110,12 @@ export default class LoginScreen extends React.Component {
           >
             <Text>Login to Toby</Text>
           </Button>
+          <Text
+            style={styles.secondButton}
+            onPress={this.onSignUpPress}
+          >
+            { "Don't have an account ? Sign up now" }
+          </Text>
           <Spinner overlay visible={loading} />
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -146,5 +154,10 @@ const styles = StyleSheet.create({
   button: {
     height: 64,
     paddingHorizontal: 48,
+  },
+  secondButton: {
+    color: colors.secondary,
+    padding: 4,
+    marginTop: 24,
   },
 });
