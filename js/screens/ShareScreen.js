@@ -218,7 +218,7 @@ export default class ShareScreen extends Component {
 
 const styles = StyleSheet.create({
   modal: {
-    backgroundColor: 'transparent',
+    backgroundColor: colors.blackTransparent,
   },
   wrapper: {
     alignItems: 'center',
