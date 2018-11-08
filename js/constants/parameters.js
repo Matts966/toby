@@ -14,7 +14,7 @@ function rgba(hex, a = null) {
 
 const plain = {
   primary: '#fa507b',
-  secondary: '#a3a3c0',
+  secondary: '#8587A4',
   grey: '#C5C7D5',
   white: '#ffffff',
   black: '#222222',

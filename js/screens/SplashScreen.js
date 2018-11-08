@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import {
+  View, StyleSheet, Image, StatusBar,
+} from 'react-native';
 
 import { colors } from '../constants/parameters';
 
@@ -7,6 +9,7 @@ const logoWhite = require('../../assets/images/logo_white.jpg');
 
 const SplashScreen = () => (
   <View style={styles.container}>
+    <StatusBar backgroundColor={colors.primary} />
     <Image
       source={logoWhite}
       style={styles.logo}

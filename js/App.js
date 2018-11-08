@@ -1,11 +1,13 @@
 import React from 'react';
-import { YellowBox } from 'react-native';
+import { YellowBox, View, StatusBar } from 'react-native';
 
 import Store from './libs/store';
 import ShareExtHelper from './libs/shareExtHelper';
 
 import MainNavigator from './navigation/MainNavigator';
 import SplashScreen from './screens/SplashScreen';
+
+import { colors } from './constants/parameters';
 
 YellowBox.ignoreWarnings([
   'Remote debugger',
@@ -33,7 +35,10 @@ export default (share = false) => (
       return !loaded ? (
         <SplashScreen />
       ) : (
-        <MainNavigator />
+        <View style={{ flex: 1 }}>
+          <StatusBar backgroundColor={colors.secondary} />
+          <MainNavigator />
+        </View>
       );
     }
   }
