@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  TouchableOpacity, View, StyleSheet, Animated,
+  TouchableOpacity, View, StyleSheet, Animated, ScrollView,
 } from 'react-native';
 import Menu, { MenuItem } from 'react-native-material-menu';
 
@@ -24,6 +24,7 @@ export default class TabBar extends Component {
     super(props);
 
     this._menu = React.createRef();
+    this._scrollView = React.createRef();
   }
 
   hideMenu = () => {
@@ -59,7 +60,6 @@ export default class TabBar extends Component {
     );
   }
 
-
   renderLabels = () => {
     const { navigation } = this.props;
 
@@ -84,7 +84,12 @@ export default class TabBar extends Component {
   render() {
     return (
       <View style={styles.tabBar}>
-        <View style={styles.tabs}>
+        <ScrollView
+          style={styles.tabs}
+          contentContainerStyle={styles.tabsContainer}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
           {this.renderLabels()}
 
           <View
@@ -93,7 +98,7 @@ export default class TabBar extends Component {
           >
             {this._renderIndicator()}
           </View>
-        </View>
+        </ScrollView>
         <View>
           <Menu
             ref={this._menu}
@@ -115,8 +120,8 @@ export default class TabBar extends Component {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: colors.white,
     paddingHorizontal: 16,
+    backgroundColor: colors.white,
     flexDirection: 'row',
     flexWrap: 'nowrap',
     alignItems: 'center',
@@ -126,10 +131,12 @@ const styles = StyleSheet.create({
   },
   tabs: {
     height: '100%',
+    flex: 1,
+  },
+  contentContainerStyle: {
     flexDirection: 'row',
     flexWrap: 'nowrap',
     alignItems: 'center',
-    flex: 1,
   },
   label: {
     height: '100%',
