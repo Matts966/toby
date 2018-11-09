@@ -62,18 +62,17 @@ class Api {
   }
 
   setAuthorisation(token) {
-    const { Authorization, ...headers } = this.baseConfig.headers;
     this.baseConfig = {
       ...this.baseConfig,
       headers: {
-        ...headers,
+        ...this.baseConfig.headers,
         ...(token ? { 'x-auth-token': token } : {}),
       },
     };
   }
 
   removeAuthorisation() {
-    const { Authorization, ...headers } = this.baseConfig.headers;
+    const { 'x-auth-token': authorisation, ...headers } = this.baseConfig.headers;
 
     this.baseConfig = {
       ...this.baseConfig,
