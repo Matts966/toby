@@ -64,6 +64,8 @@ export default class ShareScreen extends Component {
         .then(({ lists }) => this.setState({ lists })),
     ]).then(() => {
       this.setState({ loading: false });
+    }).catch(() => {
+      this.setState({ loading: false });
     });
   }
 
