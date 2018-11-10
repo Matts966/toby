@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   TouchableOpacity, View, StyleSheet, Animated, ScrollView,
 } from 'react-native';
-import Menu, { MenuItem } from 'react-native-material-menu';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import Text from './Text';
 import Icon from './Icon';
@@ -38,6 +38,8 @@ export default class TabBar extends Component {
   onTabPress = routeName => () => this.props.navigation.navigate(routeName)
 
   onLogout = () => this.props.screenProps.logout();
+
+  onRefresh = () => this.props.screenProps.refresh();
 
   _renderIndicator = () => {
     const { position, navigationState } = this.props;
@@ -108,6 +110,10 @@ export default class TabBar extends Component {
               </TouchableOpacity>
             )}
           >
+            <MenuItem onPress={this.onRefresh}>
+              Refresh
+            </MenuItem>
+            <MenuDivider />
             <MenuItem onPress={this.onLogout}>
               Logout
             </MenuItem>

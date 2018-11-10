@@ -16,6 +16,7 @@ import { fetchBookmarks } from '../actions/bookmarks';
 
 import TabBar from '../components/TabBar';
 import Text from '../components/Text';
+import Spinner from '../components/Spinner';
 import Bookmark from '../components/Bookmark';
 
 import { colors, fonts } from '../parameters';
@@ -36,13 +37,25 @@ export default class HomeScreen extends React.Component {
       teams: [],
       lists: [],
       bookmarks: [],
+      loading: false,
     };
   }
 
   componentDidMount() {
+    this.refresh();
+  }
+
+  refresh = () => {
+    this.setState({ loading: true });
+
     fetchBookmarks()
       .then(
-        ({ teams, lists, bookmarks }) => this.setState({ teams, lists, bookmarks }),
+        ({ teams, lists, bookmarks }) => this.setState({
+          teams,
+          lists,
+          bookmarks,
+          loading: false,
+        }),
       );
   }
 
@@ -122,11 +135,18 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    const { loading } = this.state;
     const TabsNavigator = this.tabsNavigator();
 
     return (
       <SafeAreaView style={styles.container}>
-        <TabsNavigator screenProps={{ logout: this.logout }} />
+        <TabsNavigator
+          screenProps={{
+            logout: this.logout,
+            refresh: this.refresh,
+          }}
+        />
+        <Spinner overlay visible={loading} />
       </SafeAreaView>
     );
   }
