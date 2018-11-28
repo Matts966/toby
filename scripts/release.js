@@ -92,7 +92,7 @@ function bumpVersion() {
 
             fs.writeFileSync(infoPlistShareExt, newContentsShareExt);
 
-            // commit(newVersion);
+            commit(newVersion);
           });
         });
       });
@@ -100,17 +100,17 @@ function bumpVersion() {
   });
 }
 
-// simpleGit.diffSummary((err, results) => {
-//   if (results.insertions || results.deletions) {
-//     console.log('There are uncommited changed. Commit all changes before bumping version');
-//     return;
-//   }
-//
-//   const loginFile = fs.readFileSync(loginComponent, 'utf8');
-//   if (loginFile.search('@') !== -1) {
-//     console.log('Remove dev credentials before bumping version !');
-//     return;
-//   }
-//
+simpleGit.diffSummary((err, results) => {
+  if (results.insertions || results.deletions) {
+    console.log('There are uncommited changed. Commit all changes before bumping version');
+    return;
+  }
+
+  const loginFile = fs.readFileSync(loginComponent, 'utf8');
+  if (loginFile.search('@') !== -1) {
+    console.log('Remove dev credentials before bumping version !');
+    return;
+  }
+
   bumpVersion();
-// });
+});
