@@ -11,6 +11,10 @@ const packageJson = path.join(root, './package.json');
 const packageLockJson = path.join(root, './package-lock.json');
 const androidManifest = path.join(root, './android/app/src/main/AndroidManifest.xml');
 const buildGradle = path.join(root, './android/app/build.gradle');
+
+const infoPlistToby = path.join(root, './ios/toby/Info.plist');
+const infoPlistShareExt = path.join(root, './ios/ShareExt/Info.plist');
+
 const loginComponent = path.join(root, './js/screens/auth/LoginScreen.js');
 /* eslint-disable-next-line import/no-extraneous-dependencies */
 const simpleGit = require('simple-git')(root);
@@ -38,49 +42,75 @@ function bumpVersion() {
       version: newVersion,
     }, null, 2));
 
-    // Update package-lock.json
-    readJson(packageLockJson, (__, data2) => {
-      fs.writeFileSync(packageLockJson, JSON.stringify({
-        ...data2,
-        version: newVersion,
-      }, null, 2));
+    // Update android/app/src/main/AndroidManifest.xml
+    fs.readFile(androidManifest, 'utf8', (__, contents) => {
+      const newContents = contents.replace(/(android:versionName=")(.*)(")/g, `$1${newVersion}$3`)
+        .replace(/(android:versionCode=")(.*)(")/g, (match, p1, p2, p3) => (
+          p1 + (+p2 + 1) + p3
+        ));
 
-      // Update android/app/src/main/AndroidManifest.xml
-      fs.readFile(androidManifest, 'utf8', (___, contents) => {
-        const newContents = contents.replace(/(android:versionName=")(.*)(")/g, `$1${newVersion}$3`)
-          .replace(/(android:versionCode=")(.*)(")/g, (match, p1, p2, p3) => (
-            p1 + (+p2 + 1) + p3
+      fs.writeFileSync(androidManifest, newContents);
+
+      // Update android/app/build.gradle
+      fs.readFile(buildGradle, 'utf8', (___, contents2) => {
+        const newContents2 = contents2.replace(/(versionName ")(.*)(")/g, `$1${newVersion}$3`)
+          .replace(/(versionCode )(.*)/g, (match, p1, p2) => (
+            p1 + (+p2 + 1)
           ));
 
-        fs.writeFileSync(androidManifest, newContents);
+        fs.writeFileSync(buildGradle, newContents2);
 
-        // Update android/app/build.gradle
-        fs.readFile(buildGradle, 'utf8', (____, contents2) => {
-          const newContents2 = contents2.replace(/(versionName ")(.*)(")/g, `$1${newVersion}$3`)
-            .replace(/(versionCode )(.*)/g, (match, p1, p2) => (
-              p1 + (+p2 + 1)
-            ));
+        console.log('newVersion', newVersion);
 
-          fs.writeFileSync(buildGradle, newContents2);
+        // Update ios/toby/Info.plist
+        fs.readFile(infoPlistToby, 'utf8', (____, contentsToby) => {
+          const newContentsToby = contentsToby.replace(
+            /(<key>CFBundleShortVersionString<\/key>\n.*<string>)(.*)(<\/string>)/g,
+            `$1${newVersion}$3`,
+          )
+            .replace(
+              /(<key>CFBundleVersion<\/key>\n.*<string>)(.*)(<\/string>)/g,
+              (match, p1, p2, p3) => (
+                p1 + (+p2 + 1) + p3
+              ),
+            );
 
-          commit(newVersion);
+          fs.writeFileSync(infoPlistToby, newContentsToby);
+
+          // Update ios/ShareExt/Info.plist
+          fs.readFile(infoPlistShareExt, 'utf8', (_____, contentsShareExt) => {
+            const newContentsShareExt = contentsShareExt.replace(
+              /(<key>CFBundleShortVersionString<\/key>\n.*<string>)(.*)(<\/string>)/g,
+              `$1${newVersion}$3`,
+            )
+              .replace(
+                /(<key>CFBundleVersion<\/key>\n.*<string>)(.*)(<\/string>)/g,
+                (match, p1, p2, p3) => (
+                  p1 + (+p2 + 1) + p3
+                ),
+              );
+
+            fs.writeFileSync(infoPlistShareExt, newContentsShareExt);
+
+            // commit(newVersion);
+          });
         });
       });
     });
   });
 }
 
-simpleGit.diffSummary((err, results) => {
-  if (results.insertions || results.deletions) {
-    console.log('There are uncommited changed. Commit all changes before bumping version');
-    return;
-  }
-
-  const loginFile = fs.readFileSync(loginComponent, 'utf8');
-  if (loginFile.search('@') !== -1) {
-    console.log('Remove dev credentials before bumping version !');
-    return;
-  }
-
+// simpleGit.diffSummary((err, results) => {
+//   if (results.insertions || results.deletions) {
+//     console.log('There are uncommited changed. Commit all changes before bumping version');
+//     return;
+//   }
+//
+//   const loginFile = fs.readFileSync(loginComponent, 'utf8');
+//   if (loginFile.search('@') !== -1) {
+//     console.log('Remove dev credentials before bumping version !');
+//     return;
+//   }
+//
   bumpVersion();
-});
+// });
