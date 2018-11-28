@@ -1,6 +1,6 @@
 {
   "name": "toby",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "avd": "~/Library/Android/sdk/tools/emulator -avd nowmad_avd &",
