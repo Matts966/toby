@@ -49,6 +49,21 @@ export default class ShareScreen extends Component {
     Promise.all([
       ShareExtension.data()
         .then(({ value }) => LinkPreview.getPreview(value))
+        .then((site) => {
+          if (!site.title) {
+            const parsedUrl = site.body.match(/https?:\/\/[^\s]+/g);
+            const url = parsedUrl && parsedUrl[0];
+
+            if (url) {
+              return LinkPreview.getPreview(url);
+            }
+          }
+
+          return {
+            ...site,
+            title: 'No title',
+          };
+        })
         .then(({
           url, title, description, favicons, images,
         }) => this.setState({
