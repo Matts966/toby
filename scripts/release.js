@@ -60,8 +60,6 @@ function bumpVersion() {
 
         fs.writeFileSync(buildGradle, newContents2);
 
-        console.log('newVersion', newVersion);
-
         // Update ios/toby/Info.plist
         fs.readFile(infoPlistToby, 'utf8', (____, contentsToby) => {
           const newContentsToby = contentsToby.replace(
