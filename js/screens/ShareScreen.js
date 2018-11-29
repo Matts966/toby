@@ -57,12 +57,14 @@ export default class ShareScreen extends Component {
             if (url) {
               return LinkPreview.getPreview(url);
             }
+
+            return {
+              ...site,
+              title: 'No title...',
+            };
           }
 
-          return {
-            ...site,
-            title: 'No title',
-          };
+          return site;
         })
         .then(({
           url, title, description, favicons, images,
